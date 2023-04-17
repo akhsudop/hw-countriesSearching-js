@@ -10,6 +10,11 @@ info.style.display = 'none';
 list.style.display = 'none';
 
 const DEBOUNCE_DELAY = 300;
+// Clean the output
+
+const clearOutput = element => {
+  element.innerHTML = '';
+};
 
 // Rendering of DOM el
 const renderCountriesList = countries => {
@@ -21,7 +26,7 @@ const renderCountriesList = countries => {
   } else if (countries.length >= 2 && countries.length <= 10) {
     list.style.display = 'block';
     info.style.display = 'none';
-    info.innerHTML = '';
+    clearOutput(info);
     const listMarkup = countries
       .map(country => {
         return `<li class="list-style">
@@ -34,7 +39,7 @@ const renderCountriesList = countries => {
   } else {
     info.style.display = 'block';
     list.style.display = 'none';
-    list.innerHTML = '';
+    clearOutput('list');
     const infoMarkup = countries
       .map(country => {
         return `<img class="info-svg" src="${
@@ -51,18 +56,23 @@ const renderCountriesList = countries => {
 //Input handler Function
 const myFunction = e => {
   let inputValue = e.target.value.trim();
+
   if (!inputValue) {
     info.style.display = 'none';
     list.style.display = 'none';
-    info.innerHTML = '';
-    list.innerHTML = '';
+    clearOutput(list);
+    clearOutput(info);
     return;
   } else {
     fetchCountries(inputValue)
       .then(countries => renderCountriesList(countries))
-      .catch(error =>
-        Notiflix.Notify.failure('Oops, there is no country with that name')
-      );
+      .catch(error => {
+        Notiflix.Notify.failure('Oops, there is no country with that name');
+        clearOutput(list);
+        clearOutput(info);
+        info.style.display = 'none';
+        list.style.display = 'none';
+      });
   }
 };
 

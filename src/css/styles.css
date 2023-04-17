@@ -11,6 +11,7 @@ body {
   color: #212121;
   line-height: 1.5;
   margin: 10px;
+  background: radial-gradient(#736f6f 1px, transparent 1px) 0 0 / 25px 25px;
 }
 
 #search-box {
@@ -25,14 +26,9 @@ body {
 .country-list {
   list-style: none;
   font-size: 25px;
-  max-width: 500px;
+  max-width: 600px;
   padding: 10px;
   margin: 0;
-}
-
-.list-style {
-  border-bottom: solid 1px;
-  border-color: gray;
 }
 
 .list-svg {
