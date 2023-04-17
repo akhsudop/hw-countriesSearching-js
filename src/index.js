@@ -20,7 +20,8 @@ const clearOutput = element => {
 const renderCountriesList = countries => {
   if (countries.length > 10) {
     Notiflix.Notify.info(
-      'Too many matches found. Please enter a more specific name.'
+      'Too many matches found. Please enter a more specific name.',
+      { position: 'center-top' }
     );
     return;
   } else if (countries.length >= 2 && countries.length <= 10) {
@@ -54,7 +55,7 @@ const renderCountriesList = countries => {
   }
 };
 //Input handler Function
-const myFunction = e => {
+const inputHandler = e => {
   let inputValue = e.target.value.trim();
 
   if (!inputValue) {
@@ -67,7 +68,9 @@ const myFunction = e => {
     fetchCountries(inputValue)
       .then(countries => renderCountriesList(countries))
       .catch(error => {
-        Notiflix.Notify.failure('Oops, there is no country with that name');
+        Notiflix.Notify.failure('Oops, there is no country with that name', {
+          position: 'center-top',
+        });
         clearOutput(list);
         clearOutput(info);
         info.style.display = 'none';
@@ -76,4 +79,4 @@ const myFunction = e => {
   }
 };
 
-input.addEventListener('input', debounce(myFunction, DEBOUNCE_DELAY));
+input.addEventListener('input', debounce(inputHandler, DEBOUNCE_DELAY));
